@@ -1,14 +1,14 @@
-/* global wp, jQuery, React, ReactDOM, _ */
-import KirkiReactSelectForm from './KirkiReactSelectForm';
+/* global wp, jQuery, React, ReactDOM */
+import KirkiSelectForm from './KirkiSelectForm';
 
 /**
- * KirkiReactSelectControl.
+ * KirkiSelectControl.
  *
  * @class
  * @augments wp.customize.Control
  * @augments wp.customize.Class
  */
-const KirkiReactSelectControl = wp.customize.Control.extend({
+const KirkiSelectControl = wp.customize.Control.extend({
 
 	/**
 	 * Initialize.
@@ -43,7 +43,7 @@ const KirkiReactSelectControl = wp.customize.Control.extend({
 	 * @param {Element} element - Notification container.
 	 * @returns {void}
 	 */
-	setNotificationContainer: function( element ) {
+	setNotificationContainer: function setNotificationContainer( element ) {
 		const control = this;
 		control.notifications.container = jQuery( element );
 		control.notifications.render();
@@ -56,24 +56,17 @@ const KirkiReactSelectControl = wp.customize.Control.extend({
 	 *
 	 * @returns {void}
 	 */
-	renderContent: function() {
+	renderContent: function renderContent() {
 		const control = this;
 		const value = control.setting.get();
-		let options = [];
-console.log( control.container[0] );
-		_.each( control.params.choices, function( v, k ) {
-			options.push( {
-				value: k,
-				label: v
-			} );
-		} );
 
-		const form = <KirkiReactSelectForm
+		const form = <KirkiSelectForm
 			{ ...control.params }
-			options={ options }
 			value={ value }
 			setNotificationContainer={ control.setNotificationContainer }
 			customizerSetting={ control.setting }
+			isOptionDisabled={ control.isOptionDisabled }
+			control={ control }
 		/>;
 		ReactDOM.render(
 			form,
@@ -116,6 +109,46 @@ console.log( control.container[0] );
 			wp.customize.Control.prototype.destroy.call( control );
 		}
 	},
+
+	isOptionDisabled: function( option ) {
+		if ( ! this.disabledSelectOptions ) {
+			return false;
+		}
+		if ( this.disabledSelectOptions.indexOf( option ) ) {
+			return true;
+		}
+		return false;
+	},
+
+	doSelectAction: function( action, arg ) {
+		var control = this,
+			i;
+
+		if ( ! this.selectElement ) {
+			return;
+		}
+		switch ( action ) {
+
+			case 'disableOption':
+				this.disabledSelectOptions = 'undefined' === typeof this.disabledSelectOptions ? [] : this.disabledSelectOptions;
+				this.disabledSelectOptions.push( { value: arg } );
+				break;
+
+			case 'enableOption':
+				if ( this.disabledSelectOptions ) {
+					for ( i = 0; i < this.disabledSelectOptions.length; i++ ) {
+						if ( this.disabledSelectOptions[ i ].value === arg ) {
+							this.disabledSelectOptions.splice( i, 1 );
+						}
+					}
+				}
+				break;
+
+			case 'selectOption':
+				control.value = arg;
+				break;
+		}
+	}
 });
 
-export default KirkiReactSelectControl;
+export default KirkiSelectControl;

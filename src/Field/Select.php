@@ -2,7 +2,7 @@
 /**
  * Override field methods
  *
- * @package   kirki-framework/control-react-select
+ * @package   kirki-framework/control-select
  * @copyright Copyright (c) 2019, Ari Stathopoulos (@aristath)
  * @license   https://opensource.org/licenses/MIT
  * @since     1.0
@@ -17,7 +17,7 @@ use Kirki\Field;
  *
  * @since 1.0
  */
-class React_Select extends Field {
+class Select extends Field {
 
 	/**
 	 * The field type.
@@ -55,7 +55,7 @@ class React_Select extends Field {
 	 * @since 0.1
 	 * @var string
 	 */
-	protected $control_class = '\Kirki\Control\React_Select';
+	protected $control_class = '\Kirki\Control\Select';
 
 	/**
 	 * Whether we should register the control class for JS-templating or not.
@@ -109,7 +109,7 @@ class React_Select extends Field {
 			$args = parent::filter_control_args( $args, $wp_customize );
 
 			$args['multiple'] = isset( $args['multiple'] ) ? absint( $args['multiple'] ) : 1;
-			$args['type']     = 'kirki-react-select';
+			$args['type']     = 'kirki-select';
 		}
 		return $args;
 	}

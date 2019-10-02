@@ -1,6 +1,6 @@
 /* global wp */
 
-import KirkiReactSelectControl from './KirkiReactSelectControl';
+import KirkiSelectControl from './KirkiSelectControl';
 
 // Register control type with Customizer.
-wp.customize.controlConstructor['kirki-react-select'] = KirkiReactSelectControl;
+wp.customize.controlConstructor['kirki-select'] = KirkiSelectControl;
