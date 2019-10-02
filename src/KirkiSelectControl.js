@@ -1,4 +1,4 @@
-/* global wp, jQuery, React, ReactDOM */
+/* global wp, jQuery, React, ReactDOM, _ */
 import KirkiSelectForm from './KirkiSelectForm';
 
 /**
@@ -65,7 +65,7 @@ const KirkiSelectControl = wp.customize.Control.extend({
 			value={ value }
 			setNotificationContainer={ control.setNotificationContainer }
 			customizerSetting={ control.setting }
-			isOptionDisabled={ control.isOptionDisabled }
+			isOptionDisabled={ control.isOptionDisabled() }
 			control={ control }
 		/>;
 		ReactDOM.render(
@@ -124,14 +124,11 @@ const KirkiSelectControl = wp.customize.Control.extend({
 		var control = this,
 			i;
 
-		if ( ! this.selectElement ) {
-			return;
-		}
 		switch ( action ) {
 
 			case 'disableOption':
 				this.disabledSelectOptions = 'undefined' === typeof this.disabledSelectOptions ? [] : this.disabledSelectOptions;
-				this.disabledSelectOptions.push( { value: arg } );
+				this.disabledSelectOptions.push( this.getOptionProps( arg ) );
 				break;
 
 			case 'enableOption':
@@ -147,6 +144,59 @@ const KirkiSelectControl = wp.customize.Control.extend({
 			case 'selectOption':
 				control.value = arg;
 				break;
+		}
+
+		this.destroy();
+		this.renderContent();
+	},
+
+	formatOptions: function() {
+		var self = this;
+		this.formattedOptions = [];
+		_.each( self.params.choices, function( label, value ) {
+			var optGroup;
+			if ( 'object' === typeof label ) {
+				optGroup = {
+					label: label[0],
+					options: []
+				};
+				_.each( label[1], function( optionVal, optionKey ) {
+					optGroup.options.push( {
+						label: optionVal,
+						value: optionKey
+					} );
+				} );
+				self.formattedOptions.push( optGroup );
+			} else if ( 'string' === typeof label ) {
+				self.formattedOptions.push( {
+					label: label,
+					value: value
+				} );
+			}
+		});
+	},
+
+	getFormattedOptions: function() {
+		if ( ! this.formattedOptions || ! this.formattedOptions.length ) {
+			this.formatOptions();
+		}
+		return this.formattedOptions;
+	},
+
+	getOptionProps: function( value ) {
+		var options = this.getFormattedOptions(), i, l;
+		for ( i = 0; i < options.length; i++ ) {
+			if ( options[ i ].value === value ) {
+				return options[ i ];
+			}
+
+			if ( options[ i ].options ) {
+				for ( l = 0; l < options[ i ].options.length; l++ ) {
+					if ( options[ i ].options[ l ].value === value ) {
+						return options[ i ].options[ l ];
+					}
+				}
+			}
 		}
 	}
 });
