@@ -21,7 +21,6 @@ const KirkiSelectForm = ( props ) => {
 
 	const multi = ( 2 <= props.multiple );
 
-	console.log( props.control.formattedOptions );
 	return (
 		<div>
 			<label className="customize-control-title">{ props.label }</label>
