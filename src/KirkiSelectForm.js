@@ -1,12 +1,22 @@
 /* globals _, wp, React */
 
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 
 const KirkiSelectForm = ( props ) => {
+	/**
+	 * Pass-on the value to the customizer object to save.
+	 *
+	 * @param {Object} val - The selected option.
+	 */
 	const handleChangeComplete = ( val ) => {
 		wp.customize( props.customizerSetting.id ).set( val.value );
 	};
 
+	/**
+	 * Change the color-scheme using WordPress colors.
+	 *
+	 * @param {Object} theme
+	 */
 	const theme = ( theme ) => ( {
 		...theme,
 		borderRadius: 0,
@@ -21,12 +31,24 @@ const KirkiSelectForm = ( props ) => {
 
 	const multi = ( 2 <= props.multiple );
 
+	/**
+	 * Allow rendering HTML in select labels.
+	 *
+	 * @param {Object} props - Object { label: foo, value: bar }.
+	 */
+	const getLabel = props => {
+		return (
+			<div dangerouslySetInnerHTML={{ __html: props.label }}></div>
+		);
+	};
+
 	return (
 		<div>
 			<label className="customize-control-title">{ props.label }</label>
 			<span class="description customize-control-description" dangerouslySetInnerHTML={{ __html: props.description }}></span>
 			<div className="customize-control-notifications-container" ref={ props.setNotificationContainer }></div>
 			<Select
+				formatOptionLabel={ getLabel }
 				options={ props.control.getFormattedOptions() }
 				theme={ theme }
 				isMulti={ multi }
