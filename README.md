@@ -24,12 +24,12 @@ To add a control using the customizer API:
  * @return void
  */
 add_action( 'customize_register', function( $wp_customize ) {
-	$wp_customize->register_control_type( '\Kirki\Control\Select' );
+	$wp_customize->register_control_type( '\Kirki\Control\ReactSelect' );
 } );
 
 /**
  * Add Customizer settings & controls.
- * 
+ *
  * @since 1.0
  * @param WP_Customize_Manager $wp_customize The WP_Customize_Manager object.
  * @return void
@@ -72,7 +72,7 @@ add_action( 'customize_register', function( $wp_customize ) {
 	] );
 
 	// Add controls.
-	$wp_customize->add_control( new \Kirki\Control\Select( $wp_customize, 'my_control', [
+	$wp_customize->add_control( new \Kirki\Control\ReactSelect( $wp_customize, 'my_control', [
 		'label'   => esc_html__( 'My Control', 'theme_textdomain' ),
         'section' => 'my_section',
         'choices' => [
@@ -83,7 +83,7 @@ add_action( 'customize_register', function( $wp_customize ) {
 			'option-5' => esc_html__( 'Option 5', 'theme_textdomain' ),
 		],
 	] ) );
-	$wp_customize->add_control( new \Kirki\Control\Select( $wp_customize, 'my_control_multi', [
+	$wp_customize->add_control( new \Kirki\Control\ReactSelect( $wp_customize, 'my_control_multi', [
 		'label'   => esc_html__( 'My Control', 'theme_textdomain' ),
         'section' => 'my_section',
         'choices' => [
