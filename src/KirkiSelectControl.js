@@ -64,6 +64,7 @@ const KirkiSelectControl = wp.customize.Control.extend({
 			{ ...control.params }
 			value={ value }
 			setNotificationContainer={ control.setNotificationContainer }
+			isClearable={ control.params.isClearable }
 			customizerSetting={ control.setting }
 			isOptionDisabled={ control.isOptionDisabled() }
 			control={ control }
