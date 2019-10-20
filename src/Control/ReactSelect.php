@@ -45,7 +45,7 @@ class ReactSelect extends Base {
 	 * @since 0.3.0
 	 * @var bool
 	 */
-	public $isClearable = true;
+	public $isClearable = false;
 
 	/**
 	 * Maximum number of options the user will be able to select.
