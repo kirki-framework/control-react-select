@@ -146,7 +146,6 @@ const KirkiSelectControl = wp.customize.Control.extend({
 				break;
 		}
 
-		this.destroy();
 		this.renderContent();
 	},
 
