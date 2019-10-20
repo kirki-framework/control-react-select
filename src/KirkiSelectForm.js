@@ -10,7 +10,7 @@ const KirkiSelectForm = ( props ) => {
 	 */
 	const handleChangeComplete = ( val, type ) => {
 
-		let newValue = type.action === 'clear' ? props.default : val.value;
+		let newValue = type.action === 'clear' ? '' : val.value;
 
 		wp.customize( props.customizerSetting.id ).set( newValue );
 
