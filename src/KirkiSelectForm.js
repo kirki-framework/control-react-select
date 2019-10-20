@@ -33,8 +33,6 @@ const KirkiSelectForm = ( props ) => {
 		},
 	} );
 
-	const multi = ( 2 <= props.multiple );
-
 	/**
 	 * Allow rendering HTML in select labels.
 	 *
@@ -56,7 +54,6 @@ const KirkiSelectForm = ( props ) => {
 				formatOptionLabel={ getLabel }
 				options={ props.control.getFormattedOptions() }
 				theme={ theme }
-				isMulti={ multi }
 				onChange={ handleChangeComplete }
 				value={ props.control.getOptionProps( props.value ) }
 				isOptionDisabled={ props.isOptionDisabled }

@@ -68,6 +68,7 @@ const KirkiSelectControl = wp.customize.Control.extend({
 			customizerSetting={ control.setting }
 			isOptionDisabled={ control.isOptionDisabled() }
 			control={ control }
+			isMulti={ control.isMulti() }
 		/>;
 		ReactDOM.render(
 			form,
@@ -89,6 +90,16 @@ const KirkiSelectControl = wp.customize.Control.extend({
 		control.setting.bind( () => {
 			control.renderContent();
 		} );
+	},
+
+	isMulti: function() {
+		if ( ! isNaN( this.params.multiple ) ) {
+			return ( 1 < this.params.multiple );
+		}
+		if ( true === this.params.multiple ) {
+			return this.params.multiple;
+		}
+		return false;
 	},
 
 	/**
