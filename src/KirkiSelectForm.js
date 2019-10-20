@@ -55,6 +55,7 @@ const KirkiSelectForm = ( props ) => {
 				formatOptionLabel={ getLabel }
 				options={ props.control.getFormattedOptions() }
 				isClearable={ props.isClearable }
+				placeholder={ props.placeholder }
 				theme={ theme }
 				isMulti={ multi }
 				onChange={ handleChangeComplete }
