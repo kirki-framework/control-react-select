@@ -8,8 +8,12 @@ const KirkiSelectForm = ( props ) => {
 	 *
 	 * @param {Object} val - The selected option.
 	 */
-	const handleChangeComplete = ( val ) => {
-		wp.customize( props.customizerSetting.id ).set( val.value );
+	const handleChangeComplete = ( val, type ) => {
+
+		let newValue = type.action === 'clear' ? props.default : val.value;
+
+		wp.customize( props.customizerSetting.id ).set( newValue );
+
 	};
 
 	/**
@@ -50,6 +54,7 @@ const KirkiSelectForm = ( props ) => {
 			<Select
 				formatOptionLabel={ getLabel }
 				options={ props.control.getFormattedOptions() }
+				isClearable={ props.isClearable }
 				theme={ theme }
 				isMulti={ multi }
 				onChange={ handleChangeComplete }
