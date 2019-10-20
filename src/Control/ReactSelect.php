@@ -39,6 +39,15 @@ class ReactSelect extends Base {
 	public $placeholder = false;
 
 	/**
+	 * Whether the select should be clearable or not.
+	 *
+	 * @link https://react-select.com/props#select-props
+	 * @since 0.3.0
+	 * @var bool
+	 */
+	public $isClearable = true;
+
+	/**
 	 * Maximum number of options the user will be able to select.
 	 * Set to 1 for single-select.
 	 *
@@ -127,7 +136,7 @@ class ReactSelect extends Base {
 	 */
 	public function to_json() {
 		parent::to_json();
-		$this->json['isClearable'] = true;
+		$this->json['isClearable'] = $this->isClearable;
 		$this->json['multiple']    = $this->multiple;
 		$this->json['placeholder'] = $this->placeholder;
 		$this->json['select_args'] = $this->select_args;
