@@ -127,6 +127,7 @@ class ReactSelect extends Base {
 	 */
 	public function to_json() {
 		parent::to_json();
+		$this->json['isClearable'] = true;
 		$this->json['multiple']    = $this->multiple;
 		$this->json['placeholder'] = $this->placeholder;
 		$this->json['select_args'] = $this->select_args;
