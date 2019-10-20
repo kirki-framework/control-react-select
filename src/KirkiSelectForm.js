@@ -52,10 +52,9 @@ const KirkiSelectForm = ( props ) => {
 			<span class="description customize-control-description" dangerouslySetInnerHTML={{ __html: props.description }}></span>
 			<div className="customize-control-notifications-container" ref={ props.setNotificationContainer }></div>
 			<Select
+				{ ...props }
 				formatOptionLabel={ getLabel }
 				options={ props.control.getFormattedOptions() }
-				isClearable={ props.isClearable }
-				placeholder={ props.placeholder }
 				theme={ theme }
 				isMulti={ multi }
 				onChange={ handleChangeComplete }
