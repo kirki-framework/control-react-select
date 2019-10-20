@@ -13,7 +13,7 @@ const KirkiSelectForm = ( props ) => {
 		let newValue = type.action === 'clear' ? props.default : val.value;
 
 		wp.customize( props.customizerSetting.id ).set( newValue );
-		
+
 	};
 
 	/**
