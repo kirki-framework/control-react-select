@@ -47,7 +47,7 @@ const KirkiSelectForm = ( props ) => {
 	return (
 		<div>
 			<label className="customize-control-title">{ props.label }</label>
-			<span class="description customize-control-description" dangerouslySetInnerHTML={{ __html: props.description }}></span>
+			<span className="description customize-control-description" dangerouslySetInnerHTML={{ __html: props.description }}></span>
 			<div className="customize-control-notifications-container" ref={ props.setNotificationContainer }></div>
 			<Select
 				{ ...props }
